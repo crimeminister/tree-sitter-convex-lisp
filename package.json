@@ -1,0 +1,22 @@
+{
+  "name": "tree-sitter-convex-lisp",
+  "version": "0.0.1",
+  "description": "A tree-sitter grammar for Convex Lisp",
+  "main": "bindings/node",
+  "keywords": [
+    "parser",
+    "lexer"
+  ],
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "highlight": "tree-sitter highlight",
+    "parse": "tree-sitter parse",
+    "test": "tree-sitter test"
+  },
+  "author": "Robert Medeiros <robert@crimeminister.org>",
+  "repository": "https://github.com/crimeminister/tree-sitter-convex-lisp",
+  "license": "MIT",
+  "dependencies": {
+    "nan": "2.19.0"
+  }
+}
