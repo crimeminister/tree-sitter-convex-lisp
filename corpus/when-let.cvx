@@ -1,0 +1,33 @@
+===
+basic
+===
+
+(when-let [x :foo]
+  nil)
+
+---
+
+(convex
+  (whenlet
+    (binding
+      (symbol)
+      (keyword))
+    (nil_lit)))
+
+===
+multiple body expr
+===
+
+(when-let [x :foo]
+  true
+  false)
+
+---
+
+(convex
+  (whenlet
+    (binding
+      (symbol)
+      (keyword))
+    (boolean)
+    (boolean)))

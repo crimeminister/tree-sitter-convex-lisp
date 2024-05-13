@@ -1,0 +1,123 @@
+===
+NaN
+===
+
+##NaN
+
+---
+
+(convex
+  (float
+    (nan)))
+
+===
++Inf
+===
+
+##Inf
+
+---
+
+(convex
+  (float
+    (inf)))
+
+===
+-Inf
+===
+
+##-Inf
+
+---
+
+(convex
+  (float
+    (inf)))
+
+===
+zero
+===
+
+0.0
+
+---
+
+(convex
+  (float))
+
+===
+-zero
+===
+
+-0.0
+
+---
+
+(convex
+  (float))
+
+===
+decimal
+===
+
+42.0
+
+---
+
+(convex
+  (float))
+
+===
+-decimal
+===
+
+-42.0
+
+---
+
+(convex
+  (float))
+
+===
+exponent
+===
+
+2e8
+
+---
+
+(convex
+  (float))
+
+===
+-exponent
+===
+
+-2e8
+
+---
+
+(convex
+  (float))
+
+===
+decimal+exponent
+===
+
+1.2e5
+
+---
+
+(convex
+  (float))
+
+===
+-decimal+exponent
+===
+
+-1.2e5
+
+---
+
+(convex
+  (float))

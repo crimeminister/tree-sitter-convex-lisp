@@ -1,0 +1,191 @@
+===
+symbol tick
+===
+
+`foo
+
+---
+
+(convex
+  (quasiquote
+    (symbol)))
+
+===
+keyword tick
+===
+
+`:foo
+
+---
+
+(convex
+  (quasiquote
+    (keyword)))
+
+===
+string tick
+===
+
+`"foo"
+
+---
+
+(convex
+  (quasiquote
+    (string)))
+
+===
+list tick
+===
+
+`()
+
+---
+
+(convex
+  (quasiquote
+    (list)))
+
+===
+vector tick
+===
+
+`[]
+
+---
+
+(convex
+  (quasiquote
+    (vector)))
+
+===
+set tick
+===
+
+`#{}
+
+---
+
+(convex
+  (quasiquote
+    (set)))
+
+===
+map tick
+===
+
+`{}
+
+---
+
+(convex
+  (quasiquote
+    (map)))
+
+===
+special tick
+===
+
+`*address*
+
+---
+
+(convex
+  (quasiquote
+    (symbol)))
+
+===
+symbol quote
+===
+
+(quasiquote foo)
+
+---
+
+(convex
+  (quasiquote
+    (symbol)))
+
+===
+keyword quote
+===
+
+(quasiquote :foo)
+
+---
+
+(convex
+  (quasiquote
+    (keyword)))
+
+===
+string quote
+===
+
+(quasiquote "foo")
+
+---
+
+(convex
+  (quasiquote
+    (string)))
+
+===
+list quote
+===
+
+(quasiquote ())
+
+---
+
+(convex
+  (quasiquote
+    (list)))
+
+===
+vector quote
+===
+
+(quasiquote [])
+
+---
+
+(convex
+  (quasiquote
+    (vector)))
+
+===
+set quote
+===
+
+(quasiquote #{})
+
+---
+
+(convex
+  (quasiquote
+    (set)))
+
+===
+map quote
+===
+
+(quasiquote {})
+
+---
+
+(convex
+  (quasiquote
+    (map)))
+
+===
+special quote
+===
+
+(quasiquote *address*)
+
+---
+
+(convex
+  (quasiquote
+    (symbol)))

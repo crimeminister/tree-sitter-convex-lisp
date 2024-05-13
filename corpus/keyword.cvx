@@ -1,0 +1,65 @@
+===
+basic
+===
+
+:foo
+
+---
+
+(convex
+  (keyword))
+
+===
+hyphenated
+===
+
+:foo-bar
+
+---
+
+(convex
+  (keyword))
+
+===
+underscore
+===
+
+:foo_bar
+
+---
+
+(convex
+  (keyword))
+
+===
+period
+===
+
+:foo.bar
+
+---
+
+(convex
+  (keyword))
+
+===
+mixed
+===
+
+:foo-bar_baz.biz
+
+---
+
+(convex
+  (keyword))
+
+===
+special
+===
+
+:*address*
+
+---
+
+(convex
+  (keyword))

@@ -1,0 +1,191 @@
+===
+symbol tilde
+===
+
+~foo
+
+---
+
+(convex
+  (unquote
+    (symbol)))
+
+===
+keyword tilde
+===
+
+~:foo
+
+---
+
+(convex
+  (unquote
+    (keyword)))
+
+===
+string tilde
+===
+
+~"foo"
+
+---
+
+(convex
+  (unquote
+    (string)))
+
+===
+list tilde
+===
+
+~()
+
+---
+
+(convex
+  (unquote
+    (list)))
+
+===
+vector tilde
+===
+
+~[]
+
+---
+
+(convex
+  (unquote
+    (vector)))
+
+===
+set tilde
+===
+
+~#{}
+
+---
+
+(convex
+  (unquote
+    (set)))
+
+===
+map tilde
+===
+
+~{}
+
+---
+
+(convex
+  (unquote
+    (map)))
+
+===
+special tilde
+===
+
+~*address*
+
+---
+
+(convex
+  (unquote
+    (symbol)))
+
+===
+symbol unquote
+===
+
+(unquote foo)
+
+---
+
+(convex
+  (unquote
+    (symbol)))
+
+===
+keyword unquote
+===
+
+(unquote :foo)
+
+---
+
+(convex
+  (unquote
+    (keyword)))
+
+===
+string unquote
+===
+
+(unquote "foo")
+
+---
+
+(convex
+  (unquote
+    (string)))
+
+===
+list unquote
+===
+
+(unquote ())
+
+---
+
+(convex
+  (unquote
+    (list)))
+
+===
+vector unquote
+===
+
+(unquote [])
+
+---
+
+(convex
+  (unquote
+    (vector)))
+
+===
+set unquote
+===
+
+(unquote #{})
+
+---
+
+(convex
+  (unquote
+    (set)))
+
+===
+map unquote
+===
+
+(unquote {})
+
+---
+
+(convex
+  (unquote
+    (map)))
+
+===
+special unquote
+===
+
+(unquote *address*)
+
+---
+
+(convex
+  (unquote
+    (symbol)))

@@ -1,0 +1,69 @@
+===
+basic
+===
+
+(defn hello
+  ^{:callable? true :doc "doc string"}
+  [a b & x y]
+  (str x))
+
+---
+
+(convex
+  (defn
+    (symbol)
+    (metadata
+      (meta_prefix)
+      (map
+        (keyword)
+        (boolean)
+        (keyword)
+        (string)))
+    (arity
+      (parameters
+        (fixed)
+        (fixed)
+        (var_marker)
+        (optional)
+        (optional))
+      (list
+        (symbol)
+        (symbol)))))
+
+===
+multi
+===
+
+(defn hello
+  ^{:callable? true :doc "doc string"}
+  ([a]
+   (str a))
+  ([a b]
+   (str a b)))
+
+---
+
+(convex
+  (defn
+    (symbol)
+  (metadata
+    (meta_prefix)
+    (map
+      (keyword)
+      (boolean)
+      (keyword)
+      (string)))
+  (arity
+    (parameters
+      (fixed))
+    (list
+      (symbol)
+      (symbol)))
+  (arity
+    (parameters
+      (fixed)
+      (fixed))
+    (list
+      (symbol)
+      (symbol)
+      (symbol)))))

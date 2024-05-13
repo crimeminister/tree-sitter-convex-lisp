@@ -1,0 +1,28 @@
+===
+basic
+===
+
+(macro [] nil)
+
+---
+
+(convex
+  (macro
+    (arity
+      (parameters)
+      (nil_lit))))
+
+===
+single arg
+===
+
+(macro [x] nil)
+
+---
+
+(convex
+  (macro
+    (arity
+      (parameters
+        (fixed))
+      (nil_lit))))

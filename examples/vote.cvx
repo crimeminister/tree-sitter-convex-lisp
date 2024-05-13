@@ -1,0 +1,208 @@
+;; -*- mode: clojure -*-
+;;
+;; vote2.cvx
+;;
+;; A voting system that allows each of a set of users to vote on a
+;; question.
+
+;; USAGE
+;; -----------------------------------------------------------------------------
+;; Load the contract code to define the (voting-machine) function:
+;;
+;; > (.file.exec "vote.cvx")
+;;
+;; Deploy the contract, supplying parameters to configure the vote:
+;;
+;; > (def my-proposal
+;;     (deploy (voting-machine
+;;              ;; Voting question.
+;;              "Question"
+;;              ;; Allowed voting choices.
+;;              [:answer-1 :answer-2]
+;;              ;; Expiry time.
+;;              (+ *timestamp* (* 1000 60))
+;;              ;; Allowed voters.
+;;              #{*address* #42 #1000}))
+;;
+;; Vote on your own behalf:
+;;
+;; > (call my-proposal (vote :answer-1))
+;;
+;; Delegate your vote to another account (in this case #42):
+;;
+;; > (call my-proposal (delegate #42))
+;;
+;; Vote as proxy for another account:
+;;
+;; > (.account.switch #42)
+;; > (call my-proposal (vote :answer-2))
+;;
+;; Get the results of the vote:
+;;
+;; > (call my-proposal (results))
+
+;; Returns the code for a "voting machine". This is voting system
+;; contract that features:
+;; - voting by self
+;; - voting by proxy
+;; - tracking of votes by account
+;; - an expiry time
+;; - adding of new voters (by owner)
+(defn voting-machine
+  [question answers end-time allowed-accounts]
+
+  ;; Quasiquoted to avoid execution.
+  ;;
+  (quasiquote
+   (do
+     ;; The owner account (deployed the contract).
+     (def owner-account
+       *caller*)
+
+     ;; The question to be answered.
+     (def question
+       ~question)
+
+     ;; The recorded votes. This is a map where the keys are the allowed
+     ;; answers and the value is the set of accounts that voted for that
+     ;; answer.
+     (def votes
+       (into {} (map (fn [answer]
+                       [answer #{}])
+                     ~answers)))
+
+     ;; The time at which voting ends.
+     (def end
+       ~end-time)
+
+     ;; The accounts allowed to vote. The keys are accounts that are
+     ;; permitted to vote, and the value is a set of accounts that the
+     ;; account is allowed to vote *for*. By default, an account is
+     ;; allowed to register a vote for itself.
+     (def accounts
+       (into {} (map (fn [account]
+                       [account #{account}])
+                     ~allowed-accounts)))
+
+     ;; Return the account that deployed the contract and which owns it.
+     (defn owner
+       ^{:callable? true}
+       []
+       owner-account)
+
+     ;; Return the set of allowed voters. This is a map from account to
+     ;; a set of accounts. When voting, the *caller* account must be one
+     ;; of the keys of this map; the set value is the collection of
+     ;; accounts that the voter has been delegated permission to vote on
+     ;; behalf of. By default, this set includes the voter's own
+     ;; account, although if they delegate their vote that will no
+     ;; longer be the case.
+     ;;
+     ;; For example, this is the expected state with three voters #11,
+     ;; #42, and #1000, after account #1000 has delegated their vote to
+     ;; #42:
+     ;;
+     ;;   {#11 #{11}, #42 #{#42 #1000}, #1000 #{}}
+     ;;
+     ;; An account's vote is registered by adding an entry to the
+     ;; results map, and removing the account from the value set
+     (defn voters
+       ^{:callable? true}
+       []
+       (into #{} (keys accounts)))
+
+     ;; Return the results as a map from answer to vote count.
+     (defn results
+       ^{:callable? true}
+       []
+       (into {} (map (fn [[k v]]
+                       [k (count v)])
+                     votes)))
+
+     ;; Returns the voting record, a map showing which account voted for
+     ;; each choice.
+     (defn record
+       ^{:callable? true}
+       []
+       votes)
+
+     ;; Add a voter to the set of allowed voters.
+     (defn add-voter
+       ^{:callable? true}
+       [account]
+       (when (>= *timestamp* end)
+         (fail :voting-ended "Voters cannot be added after voting ends"))
+       (when-not (= *caller* owner-account)
+         (fail :not-allowed "Only the owner can add a voter"))
+       (when (contains-key? accounts account)
+         (fail :existing-voter "A voter can only be added once"))
+       ;; Update the set of allowed accounts. By default, a voter is
+       ;; able to vote on their own behalf.
+       (def accounts
+         (assoc accounts account #{account}))
+       :added-voter)
+
+     ;; Assuming the caller is an allowed voter, allow them to delegate
+     ;; their vote to a proxy (the provided account). The caller can no
+     ;; longer vote on their own behalf afterwards.
+     (defn delegate
+       ^{:callable? true}
+       [account]
+       ;; You can only delegate your account if you're allowed to vote
+       ;; in the first place.
+       (when-not (contains-key? accounts *caller*)
+         (fail :invalid-voter "Only a voter can delegate their vote"))
+       (when-not (contains-key? accounts account)
+         (fail :invalid-delegate "Only existing voters can be delegates"))
+       ;; Update the accounts:
+       ;; - remove the caller's account from the set of accounts they can
+       ;;   vote for permission to vote
+       ;; - add the caller's account to the set of accounts that the
+       ;;   delegate can vote for
+       (def accounts
+         (let [caller-set (disj (get accounts *caller* #{}) *caller*)
+               delegate-set (conj (get accounts account #{}) *caller*)]
+           (assoc accounts
+                  *caller* caller-set
+                  account delegate-set)
+           :delegated)))
+
+     (defn vote
+       ^{:callable? true}
+       ;; If the caller doesn't supply another account that they're
+       ;; voting for, they're voting for themselves.
+       ([answer]
+        (vote *caller* answer))
+
+       ([account answer]
+        (cond
+          ;; Calling account must be of an allowed voter.
+          (not (contains-key? accounts *caller*))
+          :not-voter
+          ;; Check list of accounts the caller can vote for.
+          (nil? (get-in accounts [*caller* account]))
+          :not-delegate
+          ;; Voting must occur before the expiry time.
+          (>= *timestamp* end)
+          :voting-ended
+          ;; The provided answer must be an available choice.
+          (not (contains-key? votes answer))
+          :unknown-answer
+          ;; Ready to vote!
+          :else
+          (do
+            ;; Record the vote by adding the voter's account to the set
+            ;; of accounts that voted for a specific answer.
+            (def votes
+              (let [voters (get votes answer #{})
+                    voters (conj voters account)]
+                (assoc votes answer voters)))
+            ;; Remove the permission to vote.
+            (def accounts
+              (let [allowed (get accounts account #{})
+                    allowed (disj allowed account)]
+                (assoc accounts account allowed)))
+            ;; Return the results so far.
+            (results)))))
+
+     )))

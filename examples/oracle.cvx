@@ -1,0 +1,203 @@
+;; -*- mode: clojure -*-
+;;
+;; src/main/oracle/contract.cvx
+;;
+;; A trusted information provider that allows for streams of data to be
+;; provided.
+;;
+;; CONCEPTS
+;; * streams: a map from arbitrary identifier to a vector of values for
+;;   the stream.
+;; * owners: a map from stream identifier to a set of accounts allowed
+;;   to provide values for the stream.;
+;; * (open): a callable function that creates a stream and records who
+;;   is allowed to feed values into it.
+;; * (feed): a callable function for actually feeding values into the
+;;   stream.
+;;
+;; UPGRADES
+;; - inject a predicate to define allowed stream type(s)
+;; - attach a maximum stream size to each stream (deploy-time parameter)
+;; - allow stream size to be reduced below global maximum when calling (open)
+;; - define a maximum number of supported streams (deploy-time parameter)
+;; - create a security policy macro that wraps certain methods, ensuring
+;;   that only certain users can call those methods?
+;; - authorize several accounts per stream
+;; - remove old unnecessary values
+
+(def oracle
+  ;; Don't execute when read. Note that this doesn *not* allow
+  ;; unquoting (that requires use of quasiquote).
+  (quote
+   (do
+     ;; The account that deployed the oracle. Only the admin is allowed
+     ;; to open and close streams.
+     (def admin
+       *caller*)
+
+     ;; A map for remembering who owns a particular stream. The keys are
+     ;; stream identifiers, while the values are the sets of accounts
+     ;; that have permission
+     (def owners
+       {})
+
+     ;; A map for streams.
+     ;; The (arbitrary) keys are stream identifiers, while the values
+     ;; are vectors of stream values.
+     (def streams
+       {})
+
+     ;; Opens a stream.
+     ;;
+     ;; Creates a named stream that is owned by one or more
+     ;; accounts. Only callable by the admin.
+     ;;
+     ;; PARAMS
+     ;; - stream-id (keyword): the name of the stream
+     ;; - stream-owners
+     (defn open
+       ^{:callable? true}
+       [stream-id stream-owners]
+       (when-not (keyword? stream-id)
+         (fail :invalid-name "stream name is not a keyword"))
+       (when-not (set? stream-owners)
+         (fail :invalid-owners "stream owners must be a set"))
+       (let [unknown (filter (fn [x] (not (account? x))) stream-owners)]
+         (when-not (empty? unknown)
+           (fail :invalid-owners "stream owners are not a set of accounts")))
+       (cond
+         ;; Only the admin account may open a stream.
+         (not (= *caller* admin))
+         :not-admin
+         ;; Is there already a stream by the given name?
+         (contains-key? streams stream-id)
+         :stream-exists
+         ;; Create the stream and assign the owners.
+         :else
+         (do
+           (def owners
+             (assoc owners stream-id stream-owners))
+           (def streams
+             (assoc streams stream-id []))
+           ;; Inform the caller that the stream was opened.
+           [:opened stream-id])))
+
+     ;; Closes a stream.
+     ;;
+     ;; Removes the stream and any pending values. Only the contract
+     ;; owner ("admin") is permitted to close a stream.
+     ;;
+     ;; PARAMS
+     ;; - stream-id (keyword): the name of the stream
+     (defn close
+       ^{:callable? true}
+       [stream-id]
+       (cond
+         ;; Only the admin account may close a stream.
+         (not (= *caller* admin))
+         (fail :unauthorized "Only the administrator may close a stream")
+         ;; Check that the stream exists.
+         (not (contains-key? streams stream-id))
+         (fail :missing (str "There is no stream with ID " stream-id))
+         ;; Remove the stream from stream and owners maps.
+         :else
+         (do
+           (def owners
+             (dissoc owners stream-id))
+           (def streams
+             (dissoc streams stream-id))
+           ;; Inform the caller that the stream was closed.
+           [:closed stream-id])))
+
+     ;; Return the first value in the stream without modifying it.
+     (defn peek
+       ^{:callable? true}
+       ([stream-id]
+        (if-let [stream (get streams stream-id)]
+          (first stream)
+          (fail :missing (str "There is no stream with ID " stream-id))))
+
+       ;; Accept a window size argument that determines number of
+       ;; values to return.
+       ([stream-id n]
+        (if-let [stream (get streams stream-id)]
+          (slice stream 0 n)
+          (fail :missing (str "There is no stream with ID " stream-id)))))
+
+     ;; Remove and return first stream value.
+     (defn pop
+       ^{:callable? true}
+       [stream-id]
+       ;; Check that the stream exists.
+       (when-not (contains-key? streams stream-id)
+         (fail :missing (str "There is no stream with ID " stream-id)))
+       (let [stream (get streams stream-id)]
+         (if (> (count stream) 0)
+           ;; There's an element to return.
+           (let [result (first stream)]
+             ;; Remove the first element of the stream.
+             (def streams
+               (assoc streams stream-id (slice stream 1)))
+             ;; Return the first stream element.
+             result)
+           :empty)))
+
+     ;; Add an owner to a stream.
+     (defn authorize
+       ^{:callable? true}
+       [stream-id owner]
+       ;; Check that the stream exists.
+       (when-not (contains-key? streams stream-id)
+         (fail :missing (str "There is no stream with ID " stream-id)))
+       ;; Check that the provided owner is an address.
+       (when-not (address? owner)
+         (fail :invalid (str "Invalid owner account " owner)))
+       (let [owner-set (get owners stream-id #{})]
+         (def owners
+           (assoc owners stream-id (conj owner-set owner)))
+         [:authorized stream-id owner]))
+
+     ;; Remove an owner from a stream.
+     (defn unauthorize
+       ^{:callable? true}
+       [stream-id owner]
+       ;; Check that the stream exists.
+       (when-not (contains-key? streams stream-id)
+         (fail :missing (str "There is no stream with ID " stream-id)))
+       ;; Check that the provided owner is an address.
+       (when-not (address? owner)
+         (fail :invalid (str "Invalid owner account " owner)))
+       (let [owner-set (get owners stream-id #{})]
+         (def owners
+           (assoc owners stream-id (disj owner-set owner)))
+         [:unauthorized stream-id owner]))
+
+     ;; Inject values into a stream. Only a stream owner is permitted to
+     ;; add a value.
+     ;;
+     ;; PARAMS
+     ;; - stream-id (keyword): a stream identifier
+     ;; - x: the value to append to the stream
+     (defn feed
+       ^{:callable? true}
+       [stream-id x]
+       ;; Only owners can add a value to a stream.
+       (if-let [values (get streams stream-id)]
+         (let [stream-owners (get owners stream-id)]
+           (if (not (contains-key? stream-owners *caller*))
+             (fail :unauthorized "Only stream owners may add values")
+             (do
+               (def streams
+                 (assoc streams stream-id (conj values x)))
+               [:added stream-id x])))
+         (fail :missing (str "There is no stream with ID " stream-id) )))
+
+     ;; List the available streams.
+     ;;
+     ;; Returns a set of stream identifiers.
+     (defn list
+       ^{:callable? true}
+       []
+       (set (keys streams)))
+
+     )))

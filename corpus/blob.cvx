@@ -1,0 +1,71 @@
+===
+single byte 0x00
+===
+
+0x00
+
+---
+
+(convex
+  (blob
+    (bytes)))
+
+===
+single byte 0xff
+===
+
+0xff
+
+---
+
+(convex
+  (blob
+    (bytes)))
+
+===
+single byte 0xFF
+===
+
+0xFF
+
+---
+
+(convex
+  (blob
+    (bytes)))
+
+===
+multi-byte
+===
+
+0x1212
+
+---
+
+(convex
+  (blob
+    (bytes)))
+
+===
+peer key
+===
+
+0x1ee6d2eCAB45DFC7e46d52B73ec2b3Ef65B95967c69b0BC8A106e97C214bb812
+
+---
+
+(convex
+  (blob
+    (bytes)))
+
+===
+address
+===
+
+#42
+
+---
+
+(convex
+  (blob
+    (address)))

@@ -1,0 +1,97 @@
+===
+empty
+===
+
+[]
+
+---
+
+(convex
+  (vector))
+
+===
+nil
+===
+
+[nil]
+
+---
+
+(convex
+  (vector
+    (nil_lit)))
+
+===
+symbol
+===
+
+[foo]
+
+---
+
+(convex
+  (vector
+    (symbol)))
+
+===
+quoted symbol
+===
+
+['foo]
+
+---
+
+(convex
+  (vector
+    (quote
+      (symbol))))
+
+===
+keyword
+===
+
+[:a]
+
+---
+
+(convex
+  (vector
+    (keyword)))
+
+===
+string
+===
+
+["foo"]
+
+---
+
+(convex
+  (vector
+    (string)))
+
+===
+keywords
+===
+
+[:foo :bar]
+
+---
+
+(convex
+  (vector
+    (keyword)
+    (keyword)))
+
+===
+symbols
+===
+
+[foo bar]
+
+---
+
+(convex
+  (vector
+    (symbol)
+    (symbol)))

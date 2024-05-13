@@ -1,0 +1,120 @@
+===
+lower case
+===
+
+\a
+
+---
+
+(convex
+  (character))
+
+===
+upper case
+===
+
+\A
+
+---
+
+(convex
+  (character))
+
+===
+symbol
+===
+
+\$
+
+---
+
+(convex
+  (character))
+
+===
+\backspace
+===
+
+\backspace
+
+---
+
+(convex
+  (character))
+
+===
+\formfeed
+===
+
+\formfeed
+
+---
+
+(convex
+  (character))
+
+===
+\newline
+===
+
+\newline
+
+---
+
+(convex
+  (character))
+
+===
+\return
+===
+
+\return
+
+---
+
+(convex
+  (character))
+
+===
+\space
+===
+
+\space
+
+---
+
+(convex
+  (character))
+
+===
+\tab
+===
+
+\tab
+
+---
+
+(convex
+  (character))
+
+===
+codeunit
+===
+
+\u0000
+
+---
+
+(convex
+  (character))
+
+===
+unicode
+===
+
+\食
+
+---
+
+(convex
+  (character))

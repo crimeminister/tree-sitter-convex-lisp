@@ -1,0 +1,41 @@
+===
+implicit body
+===
+
+(let [])
+
+---
+
+(convex
+  (let
+    (bindings)))
+
+===
+nil body
+===
+
+(let [] nil)
+
+---
+
+(convex
+  (let
+    (bindings)
+    (nil_lit)))
+
+===
+single
+===
+
+(let [x :foo]
+  nil)
+
+---
+
+(convex
+  (let
+    (bindings
+      (binding
+        (symbol)
+        (keyword)))
+    (nil_lit)))

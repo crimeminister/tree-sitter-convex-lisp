@@ -1,0 +1,17 @@
+===
+basic
+===
+
+(defmacro example
+  [x]
+  nil)
+
+---
+
+(convex
+  (defmacro
+    (symbol)
+    (arity
+      (parameters
+        (fixed))
+      (nil_lit))))

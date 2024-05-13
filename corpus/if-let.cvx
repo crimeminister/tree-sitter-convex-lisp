@@ -1,0 +1,33 @@
+===
+basic
+===
+
+(if-let [x :foo]
+  nil)
+
+---
+
+(convex
+  (iflet
+    (binding
+      (symbol)
+      (keyword))
+    (nil_lit)))
+
+===
+else
+===
+
+(if-let [x :foo]
+  :true
+  "false")
+
+---
+
+(convex
+  (iflet
+    (binding
+      (symbol)
+      (keyword))
+    (keyword)
+    (string)))

@@ -1,0 +1,76 @@
+===
+empty
+===
+
+""
+
+---
+
+(convex
+  (string))
+
+===
+basic
+===
+
+"foo"
+
+---
+
+(convex
+  (string))
+
+===
+whitespace
+===
+
+" "
+
+---
+
+(convex
+  (string))
+
+===
+text
+===
+
+"this is text"
+
+---
+
+(convex
+  (string))
+
+===
+escapes
+===
+
+"this \\ is \" text"
+
+---
+
+(convex
+  (string))
+
+===
+including keyword
+===
+
+"this is :text"
+
+---
+
+(convex
+  (string))
+
+===
+unicode
+===
+
+"食べました"
+
+---
+
+(convex
+  (string))
