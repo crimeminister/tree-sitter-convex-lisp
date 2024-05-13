@@ -1,0 +1,24 @@
+===
+basic
+===
+
+(import convex.asset)
+
+---
+
+(convex
+  (import
+    (symbol)))
+
+===
+rename
+===
+
+(import convex.fungible :as fun)
+
+---
+
+(convex
+  (import
+    (symbol)
+    (symbol)))

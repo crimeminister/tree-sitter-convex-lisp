@@ -1,0 +1,43 @@
+===
+basic
+===
+
+foo
+
+---
+
+(convex
+  (symbol))
+
+===
+hyphen
+===
+
+foo-bar
+
+---
+
+(convex
+  (symbol))
+
+===
+underscore
+===
+
+foo_bar
+
+---
+
+(convex
+  (symbol))
+
+===
+period
+===
+
+foo.bar
+
+---
+
+(convex
+  (symbol))

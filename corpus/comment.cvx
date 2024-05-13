@@ -1,0 +1,21 @@
+===
+start-of-line
+===
+
+;; just a comment
+
+---
+
+(convex
+  (comment))
+
+===
+mid-line
+===
+
+ ;xxx
+
+---
+
+(convex
+  (comment))

@@ -1,0 +1,109 @@
+===
+zero
+===
+
+0
+
+---
+
+(convex
+  (long))
+
+===
+-zero
+===
+
+-0
+
+---
+
+(convex
+  (long))
+
+===
+noughts
+===
+
+7
+
+---
+
+(convex
+  (long))
+
+===
+-noughts
+===
+
+-7
+
+---
+
+(convex
+  (long))
+
+===
+teens
+===
+
+17
+
+---
+
+(convex
+  (long))
+
+===
+-teens
+===
+
+-17
+
+---
+
+(convex
+  (long))
+
+===
+hundreds
+===
+
+170
+
+---
+
+(convex
+  (long))
+
+===
+-hundreds
+===
+
+-170
+
+---
+
+(convex
+  (long))
+
+===
+thousands
+===
+
+1700
+
+---
+
+(convex
+  (long))
+
+===
+-thousands
+===
+
+-1700
+
+---
+
+(convex
+  (long))

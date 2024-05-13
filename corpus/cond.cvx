@@ -1,0 +1,165 @@
+===
+empty
+===
+
+(cond)
+
+---
+
+(convex
+  (cond))
+
+===
+test
+===
+
+(cond
+  true)
+
+---
+
+(convex
+  (cond
+    (boolean)))
+
+===
+pair
+===
+
+(cond
+  true
+  :foo)
+
+---
+
+(convex
+  (cond
+    (boolean)
+    (keyword)))
+
+===
+fallback
+===
+
+(cond
+  false
+  :foo
+  :fallback)
+
+---
+
+(convex
+  (cond
+    (boolean)
+    (keyword)
+    (keyword)))
+
+===
+two pairs
+===
+
+(cond
+  false
+  :foo
+  false
+  :bar)
+
+---
+
+(convex
+  (cond
+    (boolean)
+    (keyword)
+    (boolean)
+    (keyword)))
+
+===
+two pairs + fallback
+===
+
+(cond
+  false
+  :foo
+  false
+  :bar
+  :fallback)
+
+---
+
+(convex
+  (cond
+    (boolean)
+    (keyword)
+    (boolean)
+    (keyword)
+    (keyword)))
+
+===
+vote
+===
+
+(cond
+  (not (contains-key? allowed-accounts *caller*))
+  :not-allowed
+
+  (>= *timestamp* end)
+  :too-late
+
+  (not (contains-key? votes answer))
+  :unknown-answer
+
+  :else
+  (do
+    (def allowed-accounts (disj allowed-accounts *caller*))
+    (def votes (assoc votes answer (+ (get votes answer) 1)))
+    :voted))
+
+---
+
+(convex
+  (cond
+    (list
+      (symbol)
+      (list
+        (symbol)
+        (symbol)
+        (symbol)))
+    (keyword)
+
+    (list
+      (symbol)
+      (symbol)
+      (symbol))
+    (keyword)
+
+    (list
+      (symbol)
+      (list
+        (symbol)
+        (symbol)
+        (symbol)))
+    (keyword)
+
+    (keyword)
+    (list
+      (symbol)
+      (def
+        (symbol)
+        (list
+          (symbol)
+          (symbol)
+          (symbol)))
+      (def
+        (symbol)
+        (list
+          (symbol)
+          (symbol)
+          (symbol)
+          (list
+            (symbol)
+            (list
+              (symbol)
+              (symbol)
+              (symbol))
+          (long))))
+        (keyword))))

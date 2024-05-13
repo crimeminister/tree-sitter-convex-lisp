@@ -1,0 +1,63 @@
+===
+address prefix
+===
+
+#42/x
+
+---
+
+(convex
+  (lookup
+    (address)
+    (symbol)))
+
+===
+symbol prefix
+===
+
+addr/x
+
+---
+
+(convex
+  (lookup
+    (symbol)
+    (symbol)))
+
+===
+implicit account
+===
+
+(lookup x)
+
+---
+
+(convex
+  (lookup
+    (symbol)))
+
+===
+explicit address
+===
+
+(lookup #42 x)
+
+---
+
+(convex
+  (lookup
+    (address)
+    (symbol)))
+
+===
+symbolic address
+===
+
+(lookup addr x)
+
+---
+
+(convex
+  (lookup
+    (symbol)
+    (symbol)))

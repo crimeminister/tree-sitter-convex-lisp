@@ -1,0 +1,29 @@
+===
+empty
+===
+
+(dotimes [i 10])
+
+---
+
+(convex
+  (dotimes
+    (binding
+      (symbol)
+      (long))))
+
+===
+basic
+===
+
+(dotimes [i 5]
+  true)
+
+---
+
+(convex
+  (dotimes
+    (binding
+      (symbol)
+      (long))
+    (boolean)))

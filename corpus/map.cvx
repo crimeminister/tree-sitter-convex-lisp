@@ -1,0 +1,97 @@
+===
+empty
+===
+
+{}
+
+---
+
+(convex
+  (map))
+
+===
+keyword, keyword
+===
+
+{:foo :bar}
+
+---
+
+(convex
+  (map
+    (keyword)
+    (keyword)))
+
+===
+keyword, string
+===
+
+{:foo "bar"}
+
+---
+
+(convex
+  (map
+    (keyword)
+    (string)))
+
+===
+char, keyword
+===
+
+{\a :b}
+
+---
+
+(convex
+  (map
+    (character)
+    (keyword)))
+
+===
+two pairs
+===
+
+{:foo "bar" :biz "baz"}
+
+---
+
+(convex
+  (map
+    (keyword)
+    (string)
+    (keyword)
+    (string)))
+
+===
+map key
+===
+
+{{:foo :bar} "baz"}
+
+---
+
+(convex
+  (map
+    (map
+      (keyword)
+      (keyword))
+    (string)))
+
+===
+blob map
+===
+
+{0x1ee6d2eCAB45DFC7e46d52B73ec2b3Ef65B95967c69b0BC8A106e97C214bb812 :foo
+ #42 :bar}
+
+---
+
+(convex
+  (map
+    (blob
+      (bytes))
+    (keyword)
+    (blob
+      (address))
+    (keyword)))

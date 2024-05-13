@@ -18,5 +18,16 @@
   "license": "MIT",
   "dependencies": {
     "nan": "2.19.0"
-  }
+  },
+  "devDependencies": {
+    "node-gyp": "10.1.0"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.convex.lisp",
+      "file-types": [
+        "cvx"
+      ]
+    }
+  ]
 }

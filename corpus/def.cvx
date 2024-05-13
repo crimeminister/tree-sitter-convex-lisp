@@ -1,0 +1,59 @@
+===
+address
+===
+
+(def x #42)
+
+---
+
+(convex
+  (def
+    (symbol)
+    (blob
+      (address))))
+
+===
+keyword
+===
+
+(def x :foo)
+
+---
+
+(convex
+  (def
+    (symbol)
+    (keyword)))
+
+===
+map
+===
+
+(def x {:foo :bar})
+
+---
+
+(convex
+  (def
+    (symbol)
+    (map
+      (keyword)
+      (keyword))))
+
+===
+metadata
+===
+
+(def x ^{:doc "test"} 123)
+
+---
+
+(convex
+  (def
+    (symbol)
+    (metadata
+      (meta_prefix)
+      (map
+        (keyword)
+        (string)))
+    (long)))

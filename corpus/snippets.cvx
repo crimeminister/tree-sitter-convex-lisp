@@ -1,0 +1,28 @@
+===
+votes
+===
+
+(def votes
+  (into {} (map (fn [answer]
+                  [answer #{}])
+                ~answers)))
+
+---
+
+(convex
+  (def
+    (symbol)
+    (list
+      (symbol)
+      (map)
+      (list
+        (symbol)
+        (fn
+          (arity
+            (parameters
+              (fixed))
+          (vector
+            (symbol)
+            (set))))
+        (unquote
+          (symbol))))))

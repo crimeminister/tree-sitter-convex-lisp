@@ -1,0 +1,70 @@
+===
+empty
+===
+
+(loop [])
+
+---
+
+(convex
+  (loop
+    (bindings)))
+
+===
+single binding
+===
+
+(loop [i 10])
+
+---
+
+(convex
+  (loop
+    (bindings
+      (binding
+        (symbol)
+        (long)))))
+
+===
+with body
+===
+
+(loop []
+  :foo)
+
+---
+
+(convex
+  (loop
+    (bindings)
+    (keyword)))
+
+===
+basic
+===
+
+(loop [i 10]
+  (if (< i 0)
+    :done
+    (recur (dec i))))
+
+---
+
+(convex
+  (loop
+    (bindings
+      (binding
+        (symbol)
+        (long)))
+    (list
+      (symbol)
+      (list
+        (symbol)
+        (symbol)
+        (long))
+      (keyword)
+      (list
+        (symbol)
+        (list
+          (symbol)
+          (symbol))))))
