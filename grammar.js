@@ -2,10 +2,14 @@
 
 const builtin = require('./builtin');
 
+// TODO add more field declarations
+// TODO specify supertypes
+// TODO work on keyword extraction
+// TODO support tree-sitter highlight
 // TODO support blob maps, hex strings?
 
 module.exports = grammar({
-  name: 'ConvexLisp',
+  name: 'convex',
 
   // An array of tokens that may appear anywhere in the language. Used to ignore whitespace and
   // comments.

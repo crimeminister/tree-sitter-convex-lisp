@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "tree_sitter_ConvexLisp_binding",
+      "target_name": "tree_sitter_convex_binding",
       "include_dirs": [
         "<!(node -e \"require('nan')\")",
         "src"

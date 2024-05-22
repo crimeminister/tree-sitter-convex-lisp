@@ -2,6 +2,9 @@
 build
 target
 
+# tree-sitter build-wasm output
+*.wasm
+
 # Logs
 logs
 *.log

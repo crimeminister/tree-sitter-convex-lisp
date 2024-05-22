@@ -8,6 +8,10 @@
     "lexer"
   ],
   "scripts": {
+    "build": "tree-sitter generate && node-gyp build",
+    "build-wasm": "tree-sitter build-wasm",
+    "configure": "node-gyp configure",
+    "examples": "tree-sitter parse 'examples/**/*.cvx' --quiet --stat",
     "generate": "tree-sitter generate",
     "highlight": "tree-sitter highlight",
     "parse": "tree-sitter parse",
