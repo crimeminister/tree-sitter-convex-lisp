@@ -1,0 +1,5 @@
+;; -*- mode: clojure -*-
+;;
+;; src/main/token/contract.cvx
+;;
+;; Defines an example token contract.
