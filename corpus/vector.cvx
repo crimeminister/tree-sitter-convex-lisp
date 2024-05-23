@@ -19,7 +19,7 @@ nil
 
 (convex
   (vector
-    (nil)))
+    (nil_lit)))
 
 ===
 symbol

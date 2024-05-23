@@ -21,7 +21,7 @@ nil body
 (convex
   (let
     (bindings)
-    (nil)))
+    (nil_lit)))
 
 ===
 single
@@ -38,4 +38,4 @@ single
       (binding
         (symbol)
         (keyword)))
-    (nil)))
+    (nil_lit)))

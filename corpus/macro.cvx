@@ -10,7 +10,7 @@ basic
   (macro
     (arity
       (parameters)
-      (nil))))
+      (nil_lit))))
 
 ===
 single arg
@@ -25,4 +25,4 @@ single arg
     (arity
       (parameters
         (fixed))
-      (nil))))
+      (nil_lit))))

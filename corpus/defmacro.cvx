@@ -14,4 +14,4 @@ basic
     (arity
       (parameters
         (fixed))
-      (nil))))
+      (nil_lit))))

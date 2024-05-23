@@ -98,7 +98,7 @@
             "named": true
           },
           {
-            "type": "nil",
+            "type": "nil_lit",
             "named": true
           },
           {
@@ -226,7 +226,7 @@
             "named": true
           },
           {
-            "type": "nil",
+            "type": "nil_lit",
             "named": true
           },
           {
@@ -403,7 +403,7 @@
             "named": true
           },
           {
-            "type": "nil",
+            "type": "nil_lit",
             "named": true
           },
           {
@@ -525,7 +525,7 @@
             "named": true
           },
           {
-            "type": "nil",
+            "type": "nil_lit",
             "named": true
           },
           {
@@ -647,7 +647,7 @@
             "named": true
           },
           {
-            "type": "nil",
+            "type": "nil_lit",
             "named": true
           },
           {
@@ -775,7 +775,7 @@
           "named": true
         },
         {
-          "type": "nil",
+          "type": "nil_lit",
           "named": true
         },
         {
@@ -902,7 +902,7 @@
             "named": true
           },
           {
-            "type": "nil",
+            "type": "nil_lit",
             "named": true
           },
           {
@@ -1122,7 +1122,7 @@
             "named": true
           },
           {
-            "type": "nil",
+            "type": "nil_lit",
             "named": true
           },
           {
@@ -1299,7 +1299,7 @@
             "named": true
           },
           {
-            "type": "nil",
+            "type": "nil_lit",
             "named": true
           },
           {
@@ -1421,7 +1421,7 @@
             "named": true
           },
           {
-            "type": "nil",
+            "type": "nil_lit",
             "named": true
           },
           {
@@ -1594,7 +1594,7 @@
           "named": true
         },
         {
-          "type": "nil",
+          "type": "nil_lit",
           "named": true
         },
         {
@@ -1721,7 +1721,7 @@
           "named": true
         },
         {
-          "type": "nil",
+          "type": "nil_lit",
           "named": true
         },
         {
@@ -1878,7 +1878,7 @@
             "named": true
           },
           {
-            "type": "nil",
+            "type": "nil_lit",
             "named": true
           },
           {
@@ -2031,7 +2031,7 @@
           "named": true
         },
         {
-          "type": "nil",
+          "type": "nil_lit",
           "named": true
         },
         {
@@ -2205,7 +2205,7 @@
           "named": true
         },
         {
-          "type": "nil",
+          "type": "nil_lit",
           "named": true
         },
         {
@@ -2332,7 +2332,7 @@
           "named": true
         },
         {
-          "type": "nil",
+          "type": "nil_lit",
           "named": true
         },
         {
@@ -2459,7 +2459,7 @@
           "named": true
         },
         {
-          "type": "nil",
+          "type": "nil_lit",
           "named": true
         },
         {
@@ -2596,7 +2596,7 @@
           "named": true
         },
         {
-          "type": "nil",
+          "type": "nil_lit",
           "named": true
         },
         {
@@ -2723,7 +2723,7 @@
           "named": true
         },
         {
-          "type": "nil",
+          "type": "nil_lit",
           "named": true
         },
         {
@@ -2850,7 +2850,7 @@
             "named": true
           },
           {
-            "type": "nil",
+            "type": "nil_lit",
             "named": true
           },
           {
@@ -3044,7 +3044,7 @@
     "named": false
   },
   {
-    "type": "nil",
+    "type": "nil_lit",
     "named": true
   },
   {

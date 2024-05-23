@@ -12,7 +12,7 @@ basic
     (binding
       (symbol)
       (keyword))
-    (nil)))
+    (nil_lit)))
 
 ===
 multiple body expr

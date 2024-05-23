@@ -922,7 +922,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "nil"
+          "name": "nil_lit"
         },
         {
           "type": "SYMBOL",
@@ -958,7 +958,7 @@
         }
       ]
     },
-    "nil": {
+    "nil_lit": {
       "type": "TOKEN",
       "content": {
         "type": "STRING",

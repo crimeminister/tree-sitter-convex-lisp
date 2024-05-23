@@ -2,6 +2,11 @@
 
 const builtin = require('./builtin');
 
+// TODO fix examples
+// TODO separate rule for comment delimiters
+// TODO separate rule for fn call invoke position
+// TODO separate rule for metadata :doc "string"
+// TODO separate rule for operators
 // TODO add more field declarations
 // TODO specify supertypes
 // TODO work on keyword extraction
@@ -298,7 +303,7 @@ module.exports = grammar({
 
     _atom: ($) =>
       choice(
-        $.nil,
+        $.nil_lit,
         $.boolean,
         $.character,
         $.string,
@@ -309,7 +314,7 @@ module.exports = grammar({
         $.symbol,
       ),
 
-    nil: ($) =>
+    nil_lit: ($) =>
       token(
         "nil"
       ),
