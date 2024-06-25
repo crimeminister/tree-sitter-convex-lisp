@@ -3,9 +3,18 @@
   "version": "0.0.1",
   "description": "A tree-sitter grammar for Convex Lisp",
   "main": "bindings/node",
+  "types": "bindings/node",
   "keywords": [
     "parser",
     "lexer"
+  ],
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**"
   ],
   "scripts": {
     "build": "tree-sitter generate && node-gyp build",
@@ -15,16 +24,28 @@
     "generate": "tree-sitter generate",
     "highlight": "tree-sitter highlight",
     "parse": "tree-sitter parse",
-    "test": "tree-sitter test"
+    "test": "tree-sitter test",
+    "install": "node-gyp-build",
+    "prebuildify": "prebuildify --napi --strip"
   },
   "author": "Robert Medeiros <robert@crimeminister.org>",
   "repository": "https://github.com/crimeminister/tree-sitter-convex-lisp",
   "license": "MIT",
   "dependencies": {
-    "nan": "2.19.0"
+    "node-addon-api": "8.0.0",
+    "node-gyp-build": "4.8.1"
+  },
+  "peerDependencies": {
+    "tree-sitter": "0.21.1"
+  },
+  "peerDependenciesMeta": {
+    "tree_sitter": {
+      "optional": true
+    }
   },
   "devDependencies": {
-    "node-gyp": "10.1.0"
+    "node-gyp": "10.1.0",
+    "prebuildify": "6.0.1"
   },
   "tree-sitter": [
     {

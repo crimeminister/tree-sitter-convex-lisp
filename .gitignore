@@ -5,6 +5,11 @@ target
 # tree-sitter build-wasm output
 *.wasm
 
+# Build artifacts
+*.a
+*.o
+*.so
+
 # Logs
 logs
 *.log
