@@ -1,5 +1,5 @@
 #+title: tree-sitter-convex-lisp
-#+description: Introduction to the tree-sitter grammar for Convex Lisp
+#+description: A tree-sitter grammar for Convex Lisp
 #+author: Robert Medeiros <robert@crimeminister.org>
 
 * about
@@ -11,3 +11,10 @@ This is a [[https://tree-sitter.github.io/tree-sitter/][tree sitter]] grammar fo
 This is still a work in progress; please don't rely on it _just yet_.
 
 Pull requests are welcome, especially to improve the corpus of examples for testing and development.
+
+* develop
+
+#+name: initial setup
+#+begin_src bash :results silent
+$ npm install
+#+end_src
