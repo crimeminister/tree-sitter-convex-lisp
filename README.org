@@ -37,3 +37,9 @@ And finally you can build the grammar:
 #+end_src
 
 This converts the [[file:./grammar.js][grammar.js]] file into an object file that can be used with Emacs or other editors and tools to efficiently parse Convex Lisp into a concrete syntax tree useful to syntax highlighting, etc.
+
+When you just want to check that your changes to the grammar are valid, you can `generate` parser C code from the grammar file (without compiling it) using:
+
+#+begin_src bash :results silent
+  [tree-sitter-convex-lisp]$ npm run generate
+#+end_src
