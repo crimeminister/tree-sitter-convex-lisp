@@ -1,4 +1,6 @@
 #+title: tree-sitter-convex-lisp
+#+description: Introduction to the tree-sitter grammar for Convex Lisp
+#+author: Robert Medeiros <robert@crimeminister.org>
 
 * about
 
