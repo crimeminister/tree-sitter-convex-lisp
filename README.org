@@ -1,0 +1,45 @@
+#+title: tree-sitter-convex-lisp
+#+description: A tree-sitter grammar for Convex Lisp
+#+author: Robert Medeiros <robert@crimeminister.org>
+
+* about
+
+This is a [[https://tree-sitter.github.io/tree-sitter/][tree sitter]] grammar for *Convex Lisp*, a distributed Lisp that runs on top of the [[https://convex.world/][Convex]] virtual machine.
+
+* status
+
+⚠️ This is still a work in progress; please don't rely on it _just yet_.
+
+Pull requests are welcome, especially to improve the corpus of examples for testing and development.
+
+* develop
+
+You'll need to install various dependencies to begin development.
+If you use the [[https://nix.dev/manual/nix/2.18/introduction][Nix]] package manager you can configure your local environment using [[https://nix.dev/manual/nix/2.22/command-ref/nix-shell][nix-shell]]:
+
+#+begin_src bash :results silent
+  [tree-sitter-convex-lisp]$ nix-shell
+#+end_src
+
+This sets up the environment using the declarative configuration in the [[file:./shell.nix][shell.nix]] file.
+
+Now you can install the Node package dependencies:
+
+#+name: npm install
+#+begin_src bash :results silent
+  [tree-sitter-convex-lisp]$ npm install
+#+end_src
+
+And finally you can build the grammar:
+
+#+begin_src bash :results silent
+  [tree-sitter-convex-lisp]$ npm run build
+#+end_src
+
+This converts the [[file:./grammar.js][grammar.js]] file into an object file that can be used with Emacs or other editors and tools to efficiently parse Convex Lisp into a concrete syntax tree useful to syntax highlighting, etc.
+
+When you just want to check that your changes to the grammar are valid, you can `generate` parser C code from the grammar file (without compiling it) using:
+
+#+begin_src bash :results silent
+  [tree-sitter-convex-lisp]$ npm run generate
+#+end_src
