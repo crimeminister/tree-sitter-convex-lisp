@@ -1,0 +1,11 @@
+#+title: tree-sitter-convex-lisp
+
+* about
+
+This is a [[https://tree-sitter.github.io/tree-sitter/][tree sitter]] grammar for *Convex Lisp*, a distributed Lisp that runs on top of the [[https://convex.world/][Convex]] virtual machine.
+
+* status
+
+This is still a work in progress; please don't rely on it _just yet_.
+
+Pull requests are welcome, especially to improve the corpus of examples for testing and development.
