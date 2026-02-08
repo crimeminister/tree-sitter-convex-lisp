@@ -7,6 +7,7 @@ pkgs.mkShell {
     gdb
     valgrind
     nodejs
+    pnpm
     tree-sitter
     emscripten
   ];
