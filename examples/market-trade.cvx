@@ -33,4 +33,3 @@ trade/trades
 
 ;; Buy a specific trade (insert chosen trade ID)
 (trade/buy 1)
-

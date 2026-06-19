@@ -1,6 +1,6 @@
 ;; -*- mode: clojure -*-
 ;;
-;; src/main/oracle/contract.cvx
+;; examples/oracle.cvx
 ;;
 ;; A trusted information provider that allows for streams of data to be
 ;; provided.

@@ -15,9 +15,9 @@
 
 (defn ^:callable request [amt msg]
   (let [id (inc counter)]
-    (def requests 
-      (assoc requests id 
-             {:amount amt 
+    (def requests
+      (assoc requests id
+             {:amount amt
               :message msg
               :user *caller*
               :time *timestamp*}))
@@ -29,7 +29,7 @@
         amt (long (:amount rec))]
     (if (:status rec) (fail "Already handled"))
     (asset/transfer user [BOB amt])
-    (def requests (assoc requests 
+    (def requests (assoc requests
                          id
                          (assoc rec :status :approved)))
     :OK))
@@ -38,14 +38,14 @@
   (let [rec (or (get requests id) (fail "No matching ID"))
         user (:user rec)]
     (if (:status rec) (fail "Already handled"))
-    (def requests (assoc requests 
+    (def requests (assoc requests
                          id
                          (assoc rec :status :rejected)))
     :OK))
 
 (defn ^:callable gc [id]
   (let [rec (get requests id)]
-    (if (:status rec) 
+    (if (:status rec)
       (def requests (dissoc requests id))
       (fail "Not yet handled"))
     :OK))

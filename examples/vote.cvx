@@ -1,6 +1,6 @@
 ;; -*- mode: clojure -*-
 ;;
-;; vote2.cvx
+;; examples/vote.cvx
 ;;
 ;; A voting system that allows each of a set of users to vote on a
 ;; question.

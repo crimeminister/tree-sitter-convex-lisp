@@ -7,7 +7,7 @@
 ;; Filtering features
 
 (def peeps (mon/permit-subjects #12))
-(trust/trusted? peeps #12) 
+(trust/trusted? peeps #12)
 
 ;; Filtering actions
 
@@ -34,5 +34,5 @@
   (if (trust/trusted? plz-monitor *caller* :plz [USD 100])
     (asset/transfer *caller* [USD 100])
     (fail :TRUST "No dollar for you!")))
-    
+
 (call #12 (plz))

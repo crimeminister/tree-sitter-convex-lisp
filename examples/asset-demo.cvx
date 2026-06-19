@@ -8,10 +8,10 @@
 
 ;; ===============================================
 ;; Creating a token: smart contract style
-(def MYCOIN 
-	(deploy 
-		[(fun/build-token {:supply 1000}) 
-		 (fun/add-mint {:minter *address*} )] ))  
+(def MYCOIN
+        (deploy
+                [(fun/build-token {:supply 1000})
+                 (fun/add-mint {:minter *address*} )] ))
 
 (asset/balance MYCOIN)
 (asset/mint MYCOIN 100)

@@ -33,8 +33,3 @@
 (torus/buy-quote my-token 100)
 
 (torus/buy-tokens my-token 100)
-
-;; =================================
-;; Boxing
-
-()
