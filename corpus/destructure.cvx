@@ -1,0 +1,54 @@
+===
+fn
+===
+
+(fn [[k v]] nil)
+
+---
+
+(convex
+  (fn
+    (arity
+      (parameters
+        (destruct
+          (fixed)
+          (fixed)))
+      (nil_lit))))
+
+===
+let-1
+===
+
+(let [[a] [:foo]] nil)
+
+---
+
+(convex
+  (let
+    (bindings
+      (binding
+        (destruct
+          (fixed))
+        (vector
+          (keyword))))
+    (nil_lit)))
+
+===
+let-2
+===
+
+(let [[a b] [1 2]] nil)
+
+---
+
+(convex
+  (let
+    (bindings
+      (binding
+        (destruct
+          (fixed)
+          (fixed))
+        (vector
+          (long)
+          (long))))
+    (nil_lit)))

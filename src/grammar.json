@@ -1,4 +1,5 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "convex",
   "word": "_builtin_function",
   "rules": {
@@ -832,8 +833,17 @@
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "symbol"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "symbol"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "destruct"
+              }
+            ]
           }
         },
         {
@@ -843,6 +853,38 @@
             "type": "SYMBOL",
             "name": "_sexp"
           }
+        }
+      ]
+    },
+    "destruct": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "fixed"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_var_args"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "]"
         }
       ]
     },
@@ -859,8 +901,17 @@
             {
               "type": "REPEAT",
               "content": {
-                "type": "SYMBOL",
-                "name": "fixed"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "fixed"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "destruct"
+                  }
+                ]
               }
             },
             {
@@ -2203,5 +2254,6 @@
   "inline": [
     "_symbol"
   ],
-  "supertypes": []
+  "supertypes": [],
+  "reserved": {}
 }

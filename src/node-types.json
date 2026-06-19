@@ -268,6 +268,10 @@
         "required": true,
         "types": [
           {
+            "type": "destruct",
+            "named": true
+          },
+          {
             "type": "symbol",
             "named": true
           }
@@ -689,6 +693,7 @@
   {
     "type": "convex",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -1028,6 +1033,29 @@
       "types": [
         {
           "type": "arity",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "destruct",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "fixed",
+          "named": true
+        },
+        {
+          "type": "optional",
+          "named": true
+        },
+        {
+          "type": "var_marker",
           "named": true
         }
       ]
@@ -2102,6 +2130,10 @@
       "required": false,
       "types": [
         {
+          "type": "destruct",
+          "named": true
+        },
+        {
           "type": "fixed",
           "named": true
         },
@@ -2984,6 +3016,18 @@
     "named": false
   },
   {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": ":as",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -3017,7 +3061,8 @@
   },
   {
     "type": "comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "formfeed",

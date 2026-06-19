@@ -3,6 +3,7 @@
 const builtin = require('./builtin');
 
 // TODO fix examples
+// TODO parameter destructuring (also in binding?)
 // TODO separate rule for comment delimiters
 // TODO separate rule for fn call invoke position
 // TODO separate rule for metadata :doc "string"
@@ -180,7 +181,6 @@ module.exports = grammar({
     arity: ($) =>
       seq(
         field("args", $.parameters),
-        //field("docs", optional($.doc)),
         field("body", $._sexp),
       ),
 
@@ -270,14 +270,23 @@ module.exports = grammar({
 
     binding: ($) =>
       seq(
-        field("name", $.symbol),
+        field("name", choice($.symbol, $.destruct)),
         field("expr", $._sexp),
+      ),
+
+    // Destructuring of vectors
+    destruct: ($) =>
+      seq(
+        "[",
+        repeat1($.fixed),
+        optional($._var_args),
+        "]",
       ),
 
     parameters: ($) =>
       seq(
         "[",
-        optional(repeat($.fixed)),
+        optional(repeat(choice($.fixed, $.destruct))),
         optional($._var_args),
         "]",
       ),
