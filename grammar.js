@@ -71,7 +71,8 @@ module.exports = grammar({
         ),
         // (lookup x), (lookup #42 x), (lookup addr x)
         seq(
-          "(lookup",
+          "(",
+          "lookup",
           // If omitted, the account is implicitly taken to be the current one.
           optional(field("account", choice($.address, $.symbol))),
           field("name", $.symbol),
@@ -85,7 +86,8 @@ module.exports = grammar({
         seq("'", $._sexp),
         // (quote foo), (quote :foo), (quote ()), (quote {}), (quote []), (quote #{}), etc.
         seq(
-          "(quote",
+          "(",
+          "quote",
           $._sexp,
           ")",
         ),
@@ -95,7 +97,8 @@ module.exports = grammar({
       choice(
         seq("`", $._sexp),
         seq(
-          "(quasiquote",
+          "(",
+          "quasiquote",
           $._sexp,
           ")",
         ),
@@ -105,7 +108,8 @@ module.exports = grammar({
       choice(
         seq("~", $._sexp),
         seq(
-          "(unquote",
+          "(",
+          "unquote",
           $._sexp,
           ")",
         ),
@@ -113,7 +117,8 @@ module.exports = grammar({
 
     import: ($) =>
       seq(
-        "(import",
+        "(",
+        "import",
         field("name", $.symbol),
         optional(
           seq($._as, field("rename", $.symbol)),
@@ -128,18 +133,22 @@ module.exports = grammar({
 
     defmacro: ($) =>
       seq(
-        "(defmacro",
-        field("name", $.symbol),
-        field("meta", optional($.metadata)),
+        "(",
+        "defmacro",
+        optional(field("meta", $.metadata)),
+        field("name", choice($.symbol, $.unquote)),
+        optional(field("meta", $.metadata)),
         field("body", $.arity),
         ")",
       ),
 
     defn: ($) =>
       seq(
-        "(defn",
-        field("name", $.symbol),
-        field("meta", optional($.metadata)),
+        "(",
+        "defn",
+        optional(field("meta", $.metadata)),
+        field("name", choice($.symbol, $.unquote)),
+        optional(field("meta", $.metadata)),
         choice(
           // regular function
           $.arity,
@@ -157,23 +166,27 @@ module.exports = grammar({
 
     def: ($) =>
       seq(
-        "(def",
-        field("name", $.symbol),
-        field("meta", optional($.metadata)),
+        "(",
+        "def",
+        optional(field("meta", $.metadata)),
+        field("name", choice($.symbol, $.unquote)),
+        optional(field("meta", $.metadata)),
         field("body", $._sexp),
         ")",
       ),
 
     fn: ($) =>
       seq(
-        "(fn",
+        "(",
+        "fn",
         $.arity,
         ")",
       ),
 
     macro: ($) =>
       seq(
-        "(macro",
+        "(",
+        "macro",
         $.arity,
         ")",
       ),
@@ -181,12 +194,13 @@ module.exports = grammar({
     arity: ($) =>
       seq(
         field("args", $.parameters),
-        field("body", $._sexp),
+        field("body", repeat($._sexp)),
       ),
 
     cond: ($) =>
       seq(
-        "(cond",
+        "(",
+        "cond",
         // empty (cond) returns nil
         optional(
           choice(
@@ -213,7 +227,8 @@ module.exports = grammar({
 
     let: ($) =>
       seq(
-        "(let",
+        "(",
+        "let",
         $.bindings,
         repeat($._sexp),
         ")",
@@ -223,7 +238,8 @@ module.exports = grammar({
 
     iflet: ($) =>
       seq(
-        "(if-let",
+        "(",
+        "if-let",
         $._binding1,
         field("true", $._sexp),
         field("false", optional($._sexp)),
@@ -232,7 +248,8 @@ module.exports = grammar({
 
     whenlet: ($) =>
       seq(
-        "(when-let",
+        "(",
+        "when-let",
         $._binding1,
         field("body", repeat($._sexp)),
         ")",
@@ -240,7 +257,8 @@ module.exports = grammar({
 
     dotimes: ($) =>
       seq(
-        "(dotimes",
+        "(",
+        "dotimes",
         $._binding1,
         field("body", repeat($._sexp)),
         ")",
@@ -248,7 +266,8 @@ module.exports = grammar({
 
     loop: ($) =>
       seq(
-        "(loop",
+        "(",
+        "loop",
         $.bindings,
         field("body", repeat($._sexp)),
         ")",
@@ -470,7 +489,11 @@ module.exports = grammar({
     metadata: ($) =>
       seq(
         $.meta_prefix,
-        $.map,
+        choice(
+          $.map,
+          $.keyword,
+          $.symbol,
+        ),
       ),
 
     // An internal rule shared by 'symbol' and 'keyword' and which is inlined.

@@ -14,8 +14,8 @@
         ]
       },
       "body": {
-        "multiple": false,
-        "required": true,
+        "multiple": true,
+        "required": false,
         "types": [
           {
             "type": "blob",
@@ -945,7 +945,7 @@
         ]
       },
       "meta": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -960,6 +960,10 @@
         "types": [
           {
             "type": "symbol",
+            "named": true
+          },
+          {
+            "type": "unquote",
             "named": true
           }
         ]
@@ -981,7 +985,7 @@
         ]
       },
       "meta": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -996,6 +1000,10 @@
         "types": [
           {
             "type": "symbol",
+            "named": true
+          },
+          {
+            "type": "unquote",
             "named": true
           }
         ]
@@ -1007,7 +1015,7 @@
     "named": true,
     "fields": {
       "meta": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -1022,6 +1030,10 @@
         "types": [
           {
             "type": "symbol",
+            "named": true
+          },
+          {
+            "type": "unquote",
             "named": true
           }
         ]
@@ -2106,11 +2118,19 @@
       "required": true,
       "types": [
         {
+          "type": "keyword",
+          "named": true
+        },
+        {
           "type": "map",
           "named": true
         },
         {
           "type": "meta_prefix",
+          "named": true
+        },
+        {
+          "type": "symbol",
           "named": true
         }
       ]
@@ -2948,70 +2968,6 @@
     "named": false
   },
   {
-    "type": "(cond",
-    "named": false
-  },
-  {
-    "type": "(def",
-    "named": false
-  },
-  {
-    "type": "(defmacro",
-    "named": false
-  },
-  {
-    "type": "(defn",
-    "named": false
-  },
-  {
-    "type": "(dotimes",
-    "named": false
-  },
-  {
-    "type": "(fn",
-    "named": false
-  },
-  {
-    "type": "(if-let",
-    "named": false
-  },
-  {
-    "type": "(import",
-    "named": false
-  },
-  {
-    "type": "(let",
-    "named": false
-  },
-  {
-    "type": "(lookup",
-    "named": false
-  },
-  {
-    "type": "(loop",
-    "named": false
-  },
-  {
-    "type": "(macro",
-    "named": false
-  },
-  {
-    "type": "(quasiquote",
-    "named": false
-  },
-  {
-    "type": "(quote",
-    "named": false
-  },
-  {
-    "type": "(unquote",
-    "named": false
-  },
-  {
-    "type": "(when-let",
-    "named": false
-  },
-  {
     "type": ")",
     "named": false
   },
@@ -3065,7 +3021,39 @@
     "extra": true
   },
   {
+    "type": "cond",
+    "named": false
+  },
+  {
+    "type": "def",
+    "named": false
+  },
+  {
+    "type": "defmacro",
+    "named": false
+  },
+  {
+    "type": "defn",
+    "named": false
+  },
+  {
+    "type": "dotimes",
+    "named": false
+  },
+  {
+    "type": "fn",
+    "named": false
+  },
+  {
     "type": "formfeed",
+    "named": false
+  },
+  {
+    "type": "if-let",
+    "named": false
+  },
+  {
+    "type": "import",
     "named": false
   },
   {
@@ -3073,8 +3061,24 @@
     "named": true
   },
   {
+    "type": "let",
+    "named": false
+  },
+  {
     "type": "long",
     "named": true
+  },
+  {
+    "type": "lookup",
+    "named": false
+  },
+  {
+    "type": "loop",
+    "named": false
+  },
+  {
+    "type": "macro",
+    "named": false
   },
   {
     "type": "meta_prefix",
@@ -3093,6 +3097,14 @@
     "named": true
   },
   {
+    "type": "quasiquote",
+    "named": false
+  },
+  {
+    "type": "quote",
+    "named": false
+  },
+  {
     "type": "return",
     "named": false
   },
@@ -3105,8 +3117,16 @@
     "named": false
   },
   {
+    "type": "unquote",
+    "named": false
+  },
+  {
     "type": "var_marker",
     "named": true
+  },
+  {
+    "type": "when-let",
+    "named": false
   },
   {
     "type": "{",
