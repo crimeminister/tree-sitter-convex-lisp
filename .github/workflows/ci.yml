@@ -36,15 +36,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v6
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
         with:
-          version: 11
+          nix_path: nixpkgs=channel:nixos-unstable
 
       - name: Get pnpm store directory
         shell: bash
         run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+          echo "STORE_PATH=$(nix-shell --run 'pnpm store path --silent')" >> $GITHUB_ENV
 
       - name: Cache pnpm store
         uses: actions/cache@v5
@@ -54,45 +54,24 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: lts/*
-
       - name: Install Node.js dependencies
-        run: pnpm install
+        run: nix-shell --run "pnpm install"
 
       - name: Run parser tests (tree-sitter test)
-        run: pnpm run test
+        run: nix-shell --run "pnpm run test"
 
       - name: Parse examples (tree-sitter parse)
-        run: pnpm run examples
-
-      - name: Set up Rust
-        uses: dtolnay/rust-toolchain@stable
+        run: nix-shell --run "pnpm run examples"
 
       - name: Run Rust tests
-        run: cargo test
-
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: stable
-          cache-dependency-path: bindings/go/go.mod
+        run: nix-shell --run "cargo test"
 
       - name: Run Go tests
         working-directory: bindings/go
-        run: go test -v
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-          cache: pip
-          cache-dependency-path: pyproject.toml
+        run: nix-shell --run "go test -v"
 
       - name: Build Python binding
-        run: pip install -e .
+        run: nix-shell --run "pip install -e ."
 
       - name: Build Swift library
         if: runner.os == 'macOS'

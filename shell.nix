@@ -10,5 +10,10 @@ pkgs.mkShell {
     pnpm
     tree-sitter
     emscripten
+    go
+    rustc
+    cargo
+    python3
+    python3Packages.pip
   ];
 }
