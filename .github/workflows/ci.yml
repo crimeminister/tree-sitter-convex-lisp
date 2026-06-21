@@ -43,10 +43,17 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-unstable
 
-      - name: Get pnpm store directory
+      - name: Get pnpm store directory (Linux)
+        if: runner.os == 'Linux'
         shell: bash
         run: |
           echo "STORE_PATH=$(nix-shell --run 'pnpm store path --silent')" >> $GITHUB_ENV
+
+      - name: Get pnpm store directory (MacOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          echo "STORE_PATH=$HOME/Library/Caches/pnpm/store" >> $GITHUB_ENV
 
       - name: Cache pnpm store
         uses: actions/cache@v5
@@ -70,7 +77,7 @@ jobs:
 
       - name: Run Go tests
         working-directory: bindings/go
-        run: nix-shell --run "go test -v"
+        run: nix-shell ../../shell.nix --run "go get -t && go test -v"
 
       - name: Build Python binding
         run: nix-shell --run "pip install -e ."
