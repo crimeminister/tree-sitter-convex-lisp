@@ -24,6 +24,9 @@ importers:
       prebuildify:
         specifier: 6.0.1
         version: 6.0.1
+      tree-sitter-cli:
+        specifier: 0.26.9
+        version: 0.26.9
 
 packages:
 
@@ -178,6 +181,11 @@ packages:
   tinyglobby@0.2.15:
     resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
     engines: {node: '>=12.0.0'}
+
+  tree-sitter-cli@0.26.9:
+    resolution: {integrity: sha512-7l+U1RmazPVe+yA/JiX80GFOILnL/j24GbawamIzNQC8UlINrcyECbaWGaG1wuq4j/m0DQTx7Uu4r0iW9Ao1BQ==}
+    engines: {node: '>=12.0.0'}
+    hasBin: true
 
   tree-sitter@0.25.0:
     resolution: {integrity: sha512-PGZZzFW63eElZJDe/b/R/LbsjDDYJa5UEjLZJB59RQsMX+fo0j54fqBPn1MGKav/QNa0JR0zBiVaikYDWCj5KQ==}
@@ -352,6 +360,8 @@ snapshots:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
+
+  tree-sitter-cli@0.26.9: {}
 
   tree-sitter@0.25.0:
     dependencies:

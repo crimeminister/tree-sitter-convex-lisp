@@ -36,9 +36,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Set up tree-sitter
-        uses: tree-sitter/setup-action/cli@v2
-
       - name: Set up pnpm
         uses: pnpm/action-setup@v6
         with:
@@ -62,23 +59,41 @@ jobs:
         with:
           node-version: lts/*
 
-      - name: Install dependencies
+      - name: Install Node.js dependencies
         run: pnpm install
 
-      - name: Run pnpm tests
+      - name: Run parser tests (tree-sitter test)
         run: pnpm run test
 
-      - name: Run tests
-        uses: tree-sitter/parser-test-action@v3
-        with:
-          test-rust: true
-          test-node: true
-          test-python: true
-          test-go: true
-          test-swift: ${{ runner.os == 'macOS' }}
+      - name: Parse examples (tree-sitter parse)
+        run: pnpm run examples
 
-      - name: Parse examples
-        uses: tree-sitter/parse-action@v4
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Run Rust tests
+        run: cargo test
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
         with:
-          files: |
-            examples/**/*.cvx
+          go-version: stable
+          cache-dependency-path: bindings/go/go.mod
+
+      - name: Run Go tests
+        working-directory: bindings/go
+        run: go test -v
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Build Python binding
+        run: pip install -e .
+
+      - name: Build Swift library
+        if: runner.os == 'macOS'
+        run: swift build
