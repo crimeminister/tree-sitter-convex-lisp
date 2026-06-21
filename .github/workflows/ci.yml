@@ -63,7 +63,7 @@ jobs:
         run: nix-shell --run "pnpm run test"
 
       - name: Parse examples (tree-sitter parse)
-        run: nix-shell --run "pnpm run examples"
+        run: nix-shell --run "tree-sitter init-config || true; pnpm run examples"
 
       - name: Run Rust tests
         run: nix-shell --run "cargo test"
