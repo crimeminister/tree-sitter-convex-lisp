@@ -4,8 +4,6 @@ in
 pkgs.mkShell {
   name = "env";
   buildInputs = with pkgs; [
-    gdb
-    valgrind
     nodejs
     pnpm
     tree-sitter
@@ -15,5 +13,5 @@ pkgs.mkShell {
     cargo
     python3
     python3Packages.pip
-  ];
+  ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [ gdb valgrind ];
 }
