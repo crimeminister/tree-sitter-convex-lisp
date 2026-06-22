@@ -14,4 +14,8 @@ pkgs.mkShell {
     python3
     python3Packages.pip
   ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [ gdb valgrind ];
+  shellHook = ''
+    export CXXFLAGS="-std=c++20"
+    export NODE_NO_WARNINGS=1
+  '';
 }
