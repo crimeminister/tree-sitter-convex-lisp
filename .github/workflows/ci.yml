@@ -80,7 +80,7 @@ jobs:
         run: nix-shell ../../shell.nix --run "go get -t && go test -v"
 
       - name: Build Python binding
-        run: nix-shell --run "pip install --user -e ."
+        run: nix-shell --run "python3 -m venv .venv && .venv/bin/pip install -e ."
 
       - name: Build Swift library
         if: runner.os == 'macOS'
