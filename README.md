@@ -112,5 +112,4 @@ pnpm run examples
 
 The repository uses GitHub Actions for continuous integration. The workflow configuration in [.github/workflows/ci.yml](file:///home/robert/git/tree-sitter-convex-lisp/.github/workflows/ci.yml) builds and tests the parser and its bindings on:
 - Ubuntu (Linux)
-- macOS
-- Windows
+- ~~macOS~~
