@@ -1,3 +1,5 @@
+;; -*- mode: convex-ts -*-
+
 (import convex.asset :as asset)
 (import asset.multi-token :as mt)
 

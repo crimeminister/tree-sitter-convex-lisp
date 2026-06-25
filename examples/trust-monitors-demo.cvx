@@ -1,3 +1,5 @@
+;; -*- mode: convex-ts -*-
+
 (import convex.trust :as trust)
 (import convex.asset :as asset)
 (import convex.trust.monitors :as mon)
